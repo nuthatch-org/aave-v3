@@ -1,0 +1,36 @@
+# nuthatch nest on mainnet
+
+A self-hosted blockchain index. Query it locally; there is no third-party API.
+
+## Contracts
+- `c0` = 0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2
+
+## Tables (one per contract event)
+- `c0__borrow` - Borrow(address,address,address,uint256,uint8,uint256,uint16) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, user, onBehalfOf, amount, interestRateMode, borrowRate, referralCode)
+- `c0__deficit_covered` - DeficitCovered(address,address,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, caller, amountCovered)
+- `c0__deficit_created` - DeficitCreated(address,address,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, user, debtAsset, amountCreated)
+- `c0__flash_loan` - FlashLoan(address,address,address,uint256,uint8,uint256,uint16) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, target, initiator, asset, amount, interestRateMode, premium, referralCode)
+- `c0__liquidation_call` - LiquidationCall(address,address,address,uint256,uint256,address,bool) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, collateralAsset, debtAsset, user, debtToCover, liquidatedCollateralAmount, liquidator, receiveAToken)
+- `c0__minted_to_treasury` - MintedToTreasury(address,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, amountMinted)
+- `c0__position_manager_approved` - PositionManagerApproved(address,address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, user, positionManager)
+- `c0__position_manager_revoked` - PositionManagerRevoked(address,address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, user, positionManager)
+- `c0__repay` - Repay(address,address,address,uint256,bool) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, user, repayer, amount, useATokens)
+- `c0__reserve_data_updated` - ReserveDataUpdated(address,uint256,uint256,uint256,uint256,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, liquidityRate, stableBorrowRate, variableBorrowRate, liquidityIndex, variableBorrowIndex)
+- `c0__reserve_used_as_collateral_disabled` - ReserveUsedAsCollateralDisabled(address,address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, user)
+- `c0__reserve_used_as_collateral_enabled` - ReserveUsedAsCollateralEnabled(address,address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, user)
+- `c0__supply` - Supply(address,address,address,uint256,uint16) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, user, onBehalfOf, amount, referralCode)
+- `c0__user_e_mode_set` - UserEModeSet(address,uint8) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, user, categoryId)
+- `c0__withdraw` - Withdraw(address,address,address,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, reserve, user, to, amount)
+
+## Live HTTP API (run `nuthatch dev`)
+- `GET /`                    index status
+- `GET /tables`              every table with its columns
+- `GET /table/{name}?limit=N` recent rows of one table (hot + sealed)
+- `GET /entity/{id}`         one row by id (`{block:012}-{logindex:06}`)
+- `GET /sql?q=SELECT...`     read-only SQL; each table is a view named `{alias}__{event}`
+- `GET /balances?limit=N`    top holder balances (when an ERC-20 Transfer table is present)
+- `GET /balance/{address}`   one address's derived balance
+
+## MCP (for coding agents)
+Run `nuthatch mcp` (stdio) to expose tools: status, schema, tables, table, sql, entity,
+balance, top_balances. Fully offline against the local instance; nothing phones home.

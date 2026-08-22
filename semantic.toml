@@ -1,0 +1,259 @@
+# semantic.toml - what this nest's data *means* (RFC-0016). Read by the MCP `schema`
+# tool, the admin UI, and the scaffolded skill. Edit descriptions freely; the
+# `[table.*.footguns]` are DERIVED from the ABI and regenerated - leave them be.
+
+schema_version = 1
+
+[nest]
+description = "The `aave-v3` nest on mainnet. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__borrow]
+description = "`Borrow(address,address,address,uint256,uint8,uint256,uint16)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per Borrow(address,address,address,uint256,uint8,uint256,uint16) event"
+
+[table.c0__borrow.columns]
+amount = "The `amount` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+borrowRate = "The `borrowRate` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+interestRateMode = "The `interestRateMode` uint8 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+onBehalfOf = "The `onBehalfOf` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+referralCode = "The `referralCode` uint16 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__borrow.footguns]
+reserved_words = ["user"]
+big_ints = [
+    "amount",
+    "borrowRate",
+]
+overflows_dec = [
+    "amount",
+    "borrowRate",
+]
+
+[table.c0__deficit_covered]
+description = "`DeficitCovered(address,address,uint256)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per DeficitCovered(address,address,uint256) event"
+
+[table.c0__deficit_covered.columns]
+amountCovered = "The `amountCovered` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+caller = "The `caller` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__deficit_covered.footguns]
+big_ints = ["amountCovered"]
+overflows_dec = ["amountCovered"]
+
+[table.c0__deficit_created]
+description = "`DeficitCreated(address,address,uint256)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per DeficitCreated(address,address,uint256) event"
+
+[table.c0__deficit_created.columns]
+amountCreated = "The `amountCreated` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+debtAsset = "The `debtAsset` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__deficit_created.footguns]
+reserved_words = ["user"]
+big_ints = ["amountCreated"]
+overflows_dec = ["amountCreated"]
+
+[table.c0__flash_loan]
+description = "`FlashLoan(address,address,address,uint256,uint8,uint256,uint16)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per FlashLoan(address,address,address,uint256,uint8,uint256,uint16) event"
+
+[table.c0__flash_loan.columns]
+amount = "The `amount` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+asset = "The `asset` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+initiator = "The `initiator` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+interestRateMode = "The `interestRateMode` uint8 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+premium = "The `premium` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+referralCode = "The `referralCode` uint16 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+target = "The `target` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__flash_loan.footguns]
+big_ints = [
+    "amount",
+    "premium",
+]
+overflows_dec = [
+    "amount",
+    "premium",
+]
+
+[table.c0__liquidation_call]
+description = "`LiquidationCall(address,address,address,uint256,uint256,address,bool)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per LiquidationCall(address,address,address,uint256,uint256,address,bool) event"
+
+[table.c0__liquidation_call.columns]
+collateralAsset = "The `collateralAsset` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+debtAsset = "The `debtAsset` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+debtToCover = "The `debtToCover` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+liquidatedCollateralAmount = "The `liquidatedCollateralAmount` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+liquidator = "The `liquidator` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+receiveAToken = "The `receiveAToken` bool parameter - stored as exact text `'true'`/`'false'`, not a SQL boolean. `receiveAToken = true` and `AND`/`NOT` implicitly cast and work; `COALESCE`, `CASE`, `bool_and`/`bool_or` and `UNION` do not. Write `receiveAToken = 'true'` or `CAST(receiveAToken AS BOOLEAN)`. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__liquidation_call.footguns]
+reserved_words = ["user"]
+big_ints = [
+    "debtToCover",
+    "liquidatedCollateralAmount",
+]
+overflows_dec = [
+    "debtToCover",
+    "liquidatedCollateralAmount",
+]
+bools = ["receiveAToken"]
+
+[table.c0__minted_to_treasury]
+description = "`MintedToTreasury(address,uint256)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per MintedToTreasury(address,uint256) event"
+
+[table.c0__minted_to_treasury.columns]
+amountMinted = "The `amountMinted` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__minted_to_treasury.footguns]
+big_ints = ["amountMinted"]
+overflows_dec = ["amountMinted"]
+
+[table.c0__position_manager_approved]
+description = "`PositionManagerApproved(address,address)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per PositionManagerApproved(address,address) event"
+
+[table.c0__position_manager_approved.columns]
+positionManager = "The `positionManager` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__position_manager_approved.footguns]
+reserved_words = ["user"]
+
+[table.c0__position_manager_revoked]
+description = "`PositionManagerRevoked(address,address)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per PositionManagerRevoked(address,address) event"
+
+[table.c0__position_manager_revoked.columns]
+positionManager = "The `positionManager` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__position_manager_revoked.footguns]
+reserved_words = ["user"]
+
+[table.c0__repay]
+description = "`Repay(address,address,address,uint256,bool)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per Repay(address,address,address,uint256,bool) event"
+
+[table.c0__repay.columns]
+amount = "The `amount` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+repayer = "The `repayer` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+useATokens = "The `useATokens` bool parameter - stored as exact text `'true'`/`'false'`, not a SQL boolean. `useATokens = true` and `AND`/`NOT` implicitly cast and work; `COALESCE`, `CASE`, `bool_and`/`bool_or` and `UNION` do not. Write `useATokens = 'true'` or `CAST(useATokens AS BOOLEAN)`. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__repay.footguns]
+reserved_words = ["user"]
+big_ints = ["amount"]
+overflows_dec = ["amount"]
+bools = ["useATokens"]
+
+[table.c0__reserve_data_updated]
+description = "`ReserveDataUpdated(address,uint256,uint256,uint256,uint256,uint256)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per ReserveDataUpdated(address,uint256,uint256,uint256,uint256,uint256) event"
+
+[table.c0__reserve_data_updated.columns]
+liquidityIndex = "The `liquidityIndex` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+liquidityRate = "The `liquidityRate` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+stableBorrowRate = "The `stableBorrowRate` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+variableBorrowIndex = "The `variableBorrowIndex` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+variableBorrowRate = "The `variableBorrowRate` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__reserve_data_updated.footguns]
+big_ints = [
+    "liquidityRate",
+    "stableBorrowRate",
+    "variableBorrowRate",
+    "liquidityIndex",
+    "variableBorrowIndex",
+]
+overflows_dec = [
+    "liquidityRate",
+    "stableBorrowRate",
+    "variableBorrowRate",
+    "liquidityIndex",
+    "variableBorrowIndex",
+]
+
+[table.c0__reserve_used_as_collateral_disabled]
+description = "`ReserveUsedAsCollateralDisabled(address,address)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per ReserveUsedAsCollateralDisabled(address,address) event"
+
+[table.c0__reserve_used_as_collateral_disabled.columns]
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__reserve_used_as_collateral_disabled.footguns]
+reserved_words = ["user"]
+
+[table.c0__reserve_used_as_collateral_enabled]
+description = "`ReserveUsedAsCollateralEnabled(address,address)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per ReserveUsedAsCollateralEnabled(address,address) event"
+
+[table.c0__reserve_used_as_collateral_enabled.columns]
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__reserve_used_as_collateral_enabled.footguns]
+reserved_words = ["user"]
+
+[table.c0__supply]
+description = "`Supply(address,address,address,uint256,uint16)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per Supply(address,address,address,uint256,uint16) event"
+
+[table.c0__supply.columns]
+amount = "The `amount` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+onBehalfOf = "The `onBehalfOf` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+referralCode = "The `referralCode` uint16 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__supply.footguns]
+reserved_words = ["user"]
+big_ints = ["amount"]
+overflows_dec = ["amount"]
+
+[table.c0__user_e_mode_set]
+description = "`UserEModeSet(address,uint8)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per UserEModeSet(address,uint8) event"
+
+[table.c0__user_e_mode_set.columns]
+categoryId = "The `categoryId` uint8 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__user_e_mode_set.footguns]
+reserved_words = ["user"]
+
+[table.c0__withdraw]
+description = "`Withdraw(address,address,address,uint256)` events emitted by the `c0` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per Withdraw(address,address,address,uint256) event"
+
+[table.c0__withdraw.columns]
+amount = "The `amount` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+reserve = "The `reserve` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+to = "The `to` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+user = "The `user` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.c0__withdraw.footguns]
+reserved_words = [
+    "user",
+    "to",
+]
+big_ints = ["amount"]
+overflows_dec = ["amount"]
+
+[view]
+
+# Authored views (views/*.sql) are described here so the MCP/`/schema` can render them:
+# [view.your_view_name]
+# description = "What this derivation computes."
