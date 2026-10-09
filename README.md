@@ -1,6 +1,6 @@
 # aave-v3
 
-A [nuthatch](https://github.com/nightswatchhq/nuthatch) nest: **Aave V3 on Ethereum**.
+A [nuthatch](https://github.com/nuthatch-org/nuthatch) nest: **Aave V3 on Ethereum**.
 
 The Pool contract: supplies, borrows, repayments, liquidations, flash loans and reserve updates.
 
@@ -21,7 +21,7 @@ Indexed blocks **25,791,631 to 25,811,567** and sealed **51,253 events**. Every 
 ## Run it
 
 ```sh
-nuthatch init --from https://github.com/nightswatchhq/aave-v3
+nuthatch init --from https://github.com/nuthatch-org/aave-v3
 cd aave-v3
 nuthatch dev --dir . --backfill 50000 --seal-direct
 nuthatch sql --dir . "SELECT count(*) FROM \"c0__borrow\""
