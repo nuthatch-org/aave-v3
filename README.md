@@ -18,6 +18,23 @@ One binary, one config file, no graph-node, no gateway, no query fees.
 
 Indexed blocks **25,791,631 to 25,811,567** and sealed **51,253 events**. Every table below is generated from the vendored ABIs, and the run above is what this nest actually decoded, not an estimate.
 
+## Checked
+
+On 2026-11-18, with nuthatch 5.22.0, a `--backfill 7200` run indexed from one public RPC (Tenderly's gateway). Over blocks **26,434,000 to 26,439,999** inclusive, the nest's row counts were compared with `eth_getLogs` for the Pool address and each event's topic0, asked of a different public RPC (publicnode) in 1,000-block chunks:
+
+| event | nest | eth_getLogs |
+|---|---|---|
+| `Supply` | 1,513 | 1,513 |
+| `Borrow` | 745 | 745 |
+
+Both match.
+
+```sh
+nuthatch sql --dir . 'SELECT count(*) FROM "c0__supply" WHERE block_number BETWEEN 26434000 AND 26439999'
+nuthatch sql --dir . 'SELECT reserve, count(*) AS supplies FROM "c0__supply" GROUP BY reserve ORDER BY supplies DESC LIMIT 5'
+nuthatch sql --dir . 'SELECT block_number, tx_hash, "user", reserve, amount FROM "c0__borrow" ORDER BY block_number DESC, log_index DESC LIMIT 3'
+```
+
 ## Run it
 
 ```sh
